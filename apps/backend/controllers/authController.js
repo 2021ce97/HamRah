@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
+const smsService = require('../services/smsService');
 
 // Secret for JWT (should be in .env)
 const JWT_SECRET = process.env.JWT_SECRET || 'hamrah_super_secret_key_2026';
@@ -16,12 +17,17 @@ exports.requestOtp = async (req, res) => {
     const otp = Math.floor(1000 + Math.random() * 9000).toString();
     otpStore[phoneNumber] = otp;
 
-    // In a real app, send OTP via Twilio/AWCC here.
-    console.log(`[MOCK SMS] Sent OTP ${otp} to ${phoneNumber}`);
+    // Send via SMS service (uses Twilio if configured, else console mock logs)
+    const result = await smsService.sendOtp(phoneNumber, otp);
 
-    res.json({ message: 'OTP sent successfully', mockOtp: otp }); // Returning mockOtp for easy testing
+    res.json({ 
+      message: 'OTP sent successfully', 
+      provider: result.provider,
+      ...(result.provider === 'mock' ? { mockOtp: otp } : {}) // Only return mockOtp in console mode for testing
+    });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to request OTP' });
+    console.error('OTP request error:', error);
+    res.status(500).json({ error: error.message || 'Failed to request OTP' });
   }
 };
 

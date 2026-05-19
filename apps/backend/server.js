@@ -35,10 +35,12 @@ app.get('/api/health', (req, res) => {
 const authRoutes = require('./routes/auth');
 const aiRoutes = require('./routes/ai');
 const walletRoutes = require('./routes/wallet');
+const navigationRoutes = require('./routes/navigation');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/wallet', walletRoutes);
+app.use('/api/navigation', navigationRoutes);
 
 // Socket.IO Logic
 io.on('connection', (socket) => {
