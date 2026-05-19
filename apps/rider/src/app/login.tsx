@@ -8,10 +8,15 @@ export default function LoginScreen() {
   const [step, setStep] = useState(1);
   const router = useRouter();
 
+  // IMPORTANT: Replace this with your generated Railway domain!
+  // Example: 'https://hamrah-production.up.railway.app'
+  const API_URL = process.env.EXPO_PUBLIC_API_URL || 'https://YOUR_RAILWAY_URL_HERE.up.railway.app';
+
+
   const handleRequestOtp = async () => {
     if (!phoneNumber) return Alert.alert('Error', 'Please enter your phone number');
     try {
-      const response = await fetch('http://localhost:5000/api/auth/request-otp', {
+      const response = await fetch(`${API_URL}/api/auth/request-otp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ phoneNumber }),
@@ -31,7 +36,7 @@ export default function LoginScreen() {
   const handleVerifyOtp = async () => {
     if (!otp) return Alert.alert('Error', 'Please enter the OTP');
     try {
-      const response = await fetch('http://localhost:5000/api/auth/verify-otp', {
+      const response = await fetch(`${API_URL}/api/auth/verify-otp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ phoneNumber, otp }),
