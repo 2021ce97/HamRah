@@ -1,6 +1,28 @@
-# Welcome to your Expo app 👋
+# HamRah Rider App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A React Native (Expo) app for riders to request and manage trips via the HamRah platform.
+
+## Connecting to the Railway backend
+
+The app reads the backend URL from the `EXPO_PUBLIC_API_URL` environment variable. Before running or building the app you must set this to your Railway-deployed backend domain.
+
+1. Copy the example env file:
+
+   ```bash
+   cp .env.example .env.local
+   ```
+
+2. Open `.env.local` and replace the placeholder with your actual Railway domain:
+
+   ```
+   EXPO_PUBLIC_API_URL=https://your-railway-domain.up.railway.app
+   ```
+
+   You can find the domain in the Railway dashboard under your backend service's **Settings → Networking → Public Networking** section.
+
+3. The login screen (`src/app/login.tsx`) will automatically pick up the variable at build time via `process.env.EXPO_PUBLIC_API_URL`.
+
+> **Note:** `.env.local` is gitignored. Never commit real credentials or URLs to version control — use `.env.example` as the reference template instead.
 
 ## Get started
 

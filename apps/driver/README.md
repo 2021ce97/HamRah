@@ -1,6 +1,34 @@
-# Welcome to your Expo app 👋
+# HamRah Driver App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A React Native (Expo) app for drivers to receive ride requests and manage trips via the HamRah platform.
+
+## Connecting to the Railway backend
+
+The app reads the backend URL from the `EXPO_PUBLIC_API_URL` environment variable. The central API configuration lives in `src/config/api.ts` and exports `API_BASE_URL` plus pre-built `API_ENDPOINTS` that can be imported anywhere in the driver app.
+
+Before running or building the app you must set this variable to your Railway-deployed backend domain.
+
+1. Copy the example env file:
+
+   ```bash
+   cp .env.example .env.local
+   ```
+
+2. Open `.env.local` and replace the placeholder with your actual Railway domain:
+
+   ```
+   EXPO_PUBLIC_API_URL=https://your-railway-domain.up.railway.app
+   ```
+
+   You can find the domain in the Railway dashboard under your backend service's **Settings → Networking → Public Networking** section.
+
+3. Import the config wherever you need to make API calls:
+
+   ```ts
+   import { API_BASE_URL, API_ENDPOINTS } from '@/config/api';
+   ```
+
+> **Note:** `.env.local` is gitignored. Never commit real credentials or URLs to version control — use `.env.example` as the reference template instead.
 
 ## Get started
 
