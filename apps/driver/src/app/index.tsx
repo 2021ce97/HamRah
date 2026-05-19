@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Switch, FlatList, TouchableOpacity, Alert } from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
+
 
 const MOCK_REQUESTS = [
   { id: '1', pickup: 'Pul-e-Sorkh Square', destination: 'Shar-e-Naw Park', proposedFare: 150, distance: '3.2 km' },
@@ -67,9 +69,22 @@ export default function DriverHomeScreen() {
         </View>
       </View>
 
-      <View style={styles.mapPlaceholder}>
-        <Text style={styles.mapText}>🗺️ Mapbox View (Radar)</Text>
-      </View>
+      <MapView 
+        style={styles.map} 
+        initialRegion={{
+          latitude: 34.5553,
+          longitude: 69.2075,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+      >
+        <Marker 
+          coordinate={{ latitude: 34.5553, longitude: 69.2075 }}
+          title="Driver Location"
+          description="Ready for pings"
+        />
+      </MapView>
+
 
       <View style={styles.bottomSheet}>
         <Text style={styles.sectionTitle}>
@@ -123,16 +138,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#666',
   },
-  mapPlaceholder: {
+  map: {
     flex: 1,
-    backgroundColor: '#e0e0e0',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  mapText: {
-    fontSize: 20,
-    color: '#888',
-    fontWeight: 'bold',
   },
   bottomSheet: {
     height: '45%',

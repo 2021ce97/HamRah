@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
+import MapView, { Marker } from 'react-native-maps';
+
 
 export default function HomeMapScreen() {
   const router = useRouter();
@@ -23,13 +25,28 @@ export default function HomeMapScreen() {
     }, 2000);
   };
 
+  // Kabul coordinates
+  const initialRegion = {
+    latitude: 34.5553,
+    longitude: 69.2075,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+  };
+
   return (
     <View style={styles.container}>
-      {/* MOCK MAP BACKGROUND */}
-      <View style={styles.mapPlaceholder}>
-        <Text style={styles.mapText}>🗺️ Mapbox View (Kabul)</Text>
-        {/* Real implementation would use @rnmapbox/maps */}
-      </View>
+      {/* REAL GOOGLE MAPS INTEGRATION */}
+      <MapView 
+        style={styles.map} 
+        initialRegion={initialRegion}
+      >
+        <Marker 
+          coordinate={{ latitude: 34.5553, longitude: 69.2075 }}
+          title="Kabul Center"
+          description="HamRah Ride-Hailing"
+        />
+      </MapView>
+
 
       {/* RIDE PROPOSAL BOTTOM SHEET */}
       <KeyboardAvoidingView 
@@ -96,16 +113,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f5f5f5',
   },
-  mapPlaceholder: {
+  map: {
     flex: 1,
-    backgroundColor: '#e0e0e0',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  mapText: {
-    fontSize: 24,
-    color: '#888',
-    fontWeight: 'bold',
   },
   bottomSheet: {
     backgroundColor: '#fff',
