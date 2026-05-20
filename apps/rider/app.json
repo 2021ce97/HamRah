@@ -8,7 +8,7 @@
     "scheme": "rider",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "icon": "./assets/expo.icon"
+      "supportsRtl": true
     },
     "android": {
       "package": "com.hamrah.rider",
@@ -19,9 +19,6 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "supportsRtl": true
-    },
-    "ios": {
       "supportsRtl": true
     },
     "web": {
@@ -48,8 +45,9 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "87067243-f2ef-4090-97b0-4d1e545bfd1e"
+        "projectId": "0cd738e3-9c03-4350-bf10-6113e6eccebf"
       }
-    }
+    },
+    "owner": "fazl.sardar"
   }
 }
