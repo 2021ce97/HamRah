@@ -1,0 +1,21 @@
+# Railway Environment Variables - COPY THESE EXACTLY
+
+Go to Railway Dashboard → Your Project → Backend Service → Variables Tab
+
+Add these variables (click "New Variable" for each):
+
+1. Variable Name: MONGO_URI
+   Value: mongodb+srv://hamrah-databse:HamRah%40122710@hamrah.4infjgw.mongodb.net/hamrah?retryWrites=true&w=majority&appName=HamRah
+
+2. Variable Name: JWT_SECRET
+   Value: hamrah-super-secret-jwt-key-2024-production
+
+3. Variable Name: NODE_ENV
+   Value: production
+
+4. Variable Name: PORT
+   Value: 5000
+
+After adding all variables, click "Deploy" or "Redeploy" button.
+
+IMPORTANT: Make sure there are NO extra spaces before or after the values!
