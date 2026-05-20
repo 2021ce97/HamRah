@@ -11,6 +11,16 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: '',
   },
+  rating: {
+    type: Number,
+    default: 5.0,
+    min: 0,
+    max: 5,
+  },
+  totalRides: {
+    type: Number,
+    default: 0,
+  },
   language: {
     type: String,
     enum: ['Dari', 'Pashto', 'English'],
@@ -19,6 +29,10 @@ const userSchema = new mongoose.Schema({
   isActive: {
     type: Boolean,
     default: true,
+  },
+  socketId: {
+    type: String,
+    default: null,
   },
   createdAt: {
     type: Date,

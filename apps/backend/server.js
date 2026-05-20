@@ -1,9 +1,9 @@
 require('dotenv').config();
 const express = require('express');
 const http = require('http');
-const { Server } = require('socket.io');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const SocketServer = require('./socket/socketServer');
 
 const app = express();
 const server = http.createServer(app);
@@ -11,14 +11,6 @@ const server = http.createServer(app);
 // Enable CORS and JSON parsing
 app.use(cors());
 app.use(express.json());
-
-// Initialize Socket.IO
-const io = new Server(server, {
-  cors: {
-    origin: '*',
-    methods: ['GET', 'POST']
-  }
-});
 
 // MongoDB Connection
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/hamrah';
@@ -42,15 +34,27 @@ app.use('/api/ai', aiRoutes);
 app.use('/api/wallet', walletRoutes);
 app.use('/api/navigation', navigationRoutes);
 
-// Socket.IO Logic
-io.on('connection', (socket) => {
-  console.log('⚡ A user connected:', socket.id);
+// Initialize Socket.IO Server for Real-Time Ride Matching
+const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
+const socketServer = new SocketServer(server, JWT_SECRET);
 
-  socket.on('disconnect', () => {
-    console.log('❌ User disconnected:', socket.id);
-  });
+// Initialize RideMatcher and TimeoutManager
+const RideMatcher = require('./socket/rideMatcher');
+const TimeoutManager = require('./socket/timeoutManager');
 
-  // Example Event: Driver location update
+socketServer.rideMatcher = new RideMatcher();
+socketServer.timeoutManager = new TimeoutManager(socketServer);
+
+socketServer.initialize();
+
+// Make socketServer available to other modules if needed
+app.set('socketServer', socketServer);
+
+console.log('✅ RideMatcher initialized');
+console.log('✅ TimeoutManager initialized');
+
+// Example: Legacy updateLocation event handler (can be moved to dedicated module later)
+socketServer.getIO().on('connection', (socket) => {
   socket.on('updateLocation', (data) => {
     // Broadcast location to nearby riders or active ride channel
     console.log(`Location update from ${socket.id}:`, data);
@@ -60,4 +64,5 @@ io.on('connection', (socket) => {
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`🔌 Socket.IO server ready for real-time ride matching`);
 });

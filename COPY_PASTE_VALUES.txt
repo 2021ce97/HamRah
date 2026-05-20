@@ -1,0 +1,103 @@
+=================================================================
+HAMRAH PROJECT - COPY & PASTE VALUES
+=================================================================
+
+MONGODB CONNECTION STRING:
+mongodb+srv://hamrah-databse:HamRah%40122710@hamrah.4infjgw.mongodb.net/hamrah?retryWrites=true&w=majority&appName=HamRah
+
+=================================================================
+RAILWAY CONFIGURATION
+=================================================================
+
+ROOT DIRECTORY:
+apps/backend
+
+START COMMAND:
+node server.js
+
+ENVIRONMENT VARIABLES:
+
+PORT
+5000
+
+MONGO_URI
+mongodb+srv://hamrah-databse:HamRah%40122710@hamrah.4infjgw.mongodb.net/hamrah?retryWrites=true&w=majority&appName=HamRah
+
+JWT_SECRET
+hamrah-super-secret-jwt-key-2024-production
+
+NODE_ENV
+production
+
+=================================================================
+VERCEL CONFIGURATION
+=================================================================
+
+ROOT DIRECTORY:
+apps/admin
+
+FRAMEWORK PRESET:
+Next.js
+
+☑ Include source files outside of the Root Directory in the Build Step
+
+=================================================================
+MOBILE APPS CONFIGURATION
+=================================================================
+
+After Railway deployment, update these files:
+
+apps/rider/.env:
+EXPO_PUBLIC_API_URL=https://YOUR-RAILWAY-URL.railway.app
+
+apps/driver/.env:
+EXPO_PUBLIC_API_URL=https://YOUR-RAILWAY-URL.railway.app
+
+Replace YOUR-RAILWAY-URL with your actual Railway URL
+
+=================================================================
+BUILD COMMANDS
+=================================================================
+
+Install EAS CLI:
+npm install -g eas-cli
+
+Login to Expo:
+eas login
+Username: fazl.sardar
+
+Build Rider App:
+cd c:\Users\Allah\.gemini\antigravity\scratch\HamRah\apps\rider
+eas build --platform android --profile preview
+
+Build Driver App:
+cd c:\Users\Allah\.gemini\antigravity\scratch\HamRah\apps\driver
+eas build --platform android --profile preview
+
+=================================================================
+TEST COMMANDS
+=================================================================
+
+Test Railway Backend:
+curl https://YOUR-RAILWAY-URL.railway.app/api/health
+
+Expected Response:
+{"status":"healthy","service":"HamRah Backend API"}
+
+=================================================================
+DOWNLOAD LINKS
+=================================================================
+
+Railway Dashboard:
+https://railway.app/
+
+Vercel Dashboard:
+https://vercel.com/
+
+Expo Dashboard:
+https://expo.dev/accounts/fazl.sardar
+
+MongoDB Atlas:
+https://cloud.mongodb.com/
+
+=================================================================
