@@ -1,0 +1,152 @@
+=================================================================
+QUICK FIX - RAILWAY & VERCEL
+=================================================================
+
+🚨 RAILWAY FIX (Do This First!)
+=================================================================
+
+STEP 1: Delete Old Service
+---------------------------
+1. Go to: https://railway.app/
+2. Click HamRah project
+3. Click the HamRah service (showing "ACTIVE")
+4. Click "Settings" tab
+5. Scroll down → Click "Delete Service"
+6. Confirm deletion
+
+STEP 2: Create New Service
+---------------------------
+1. Click "+ New" button (top right)
+2. Select "GitHub Repo"
+3. Select your HamRah repository
+4. Wait for Railway to set it up
+
+STEP 3: Configure Service
+---------------------------
+Settings Tab:
+- Root Directory: apps/backend
+- Start Command: node server.js
+
+Variables Tab (Add these 4):
+- PORT = 5000
+- MONGO_URI = mongodb+srv://hamrah-databse:HamRah%40122710@hamrah.4infjgw.mongodb.net/hamrah?retryWrites=true&w=majority&appName=HamRah
+- JWT_SECRET = hamrah-super-secret-jwt-key-2024-production
+- NODE_ENV = production
+
+STEP 4: Deploy
+---------------------------
+1. Click "Deployments" tab
+2. Wait for automatic deployment (2-3 min)
+3. Check logs for: "✅ Connected to MongoDB"
+
+STEP 5: Get URL
+---------------------------
+1. Settings tab → Networking section
+2. Click "Generate Domain"
+3. Copy the URL (save it!)
+
+STEP 6: Test
+---------------------------
+curl https://YOUR-URL.railway.app/api/health
+
+Expected: {"status":"healthy","service":"HamRah Backend API"}
+
+=================================================================
+🌐 VERCEL FIX
+=================================================================
+
+STEP 1: Open Settings
+---------------------------
+1. Go to: https://vercel.com/
+2. Click your HamRah admin project
+3. Click "Settings" tab (top right)
+
+STEP 2: Set Root Directory
+---------------------------
+1. Click "General" in left sidebar
+2. Scroll to "Build & Development Settings"
+3. Find "Root Directory"
+4. Click "OVERRIDE"
+5. Type: apps/admin
+6. Press Enter
+
+STEP 3: Enable Source Files
+---------------------------
+☑ Check: "Include source files outside of the Root Directory"
+
+STEP 4: Verify Settings
+---------------------------
+- Framework Preset: Next.js
+- Build Command: (empty or "next build")
+- Output Directory: (empty or ".next")
+
+STEP 5: Save & Redeploy
+---------------------------
+1. Click "Save" at bottom
+2. Go to "Deployments" tab
+3. Click "..." on latest deployment
+4. Click "Redeploy"
+5. Confirm
+
+STEP 6: Wait & Test
+---------------------------
+1. Wait for "Ready" status (2-3 min)
+2. Click "Visit" to test
+3. Admin app should load
+
+=================================================================
+📱 UPDATE MOBILE APPS
+=================================================================
+
+After Railway succeeds, update these files:
+
+apps/rider/.env:
+EXPO_PUBLIC_API_URL=https://YOUR-RAILWAY-URL.railway.app
+
+apps/driver/.env:
+EXPO_PUBLIC_API_URL=https://YOUR-RAILWAY-URL.railway.app
+
+=================================================================
+🔨 BUILD APKs
+=================================================================
+
+npm install -g eas-cli
+eas login
+
+cd c:\Users\Allah\.gemini\antigravity\scratch\HamRah\apps\rider
+eas build --platform android --profile preview
+
+cd c:\Users\Allah\.gemini\antigravity\scratch\HamRah\apps\driver
+eas build --platform android --profile preview
+
+Download from: https://expo.dev/accounts/fazl.sardar
+
+=================================================================
+✅ CHECKLIST
+=================================================================
+
+Railway:
+[ ] Old service deleted
+[ ] New service created
+[ ] Root directory: apps/backend
+[ ] Start command: node server.js
+[ ] 4 variables added
+[ ] Deployment successful
+[ ] Logs show "Connected to MongoDB"
+[ ] Health endpoint works
+
+Vercel:
+[ ] Root directory: apps/admin
+[ ] Source files checkbox checked
+[ ] Deployment ready
+[ ] Admin app loads
+
+Mobile:
+[ ] .env files updated
+[ ] Rider APK built
+[ ] Driver APK built
+[ ] APKs downloaded
+
+=================================================================
+🚀 START NOW - Delete Railway service and recreate it!
+=================================================================
