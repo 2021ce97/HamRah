@@ -19,7 +19,12 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "supportsRtl": true
+      "supportsRtl": true,
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDemoKeyForDevelopment"
+        }
+      }
     },
     "web": {
       "output": "static",

@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform, ScrollView, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
-import MapView, { Marker } from 'react-native-maps';
-
 
 export default function HomeMapScreen() {
   const router = useRouter();
@@ -13,40 +11,26 @@ export default function HomeMapScreen() {
 
   const handleRequestRide = () => {
     if (!pickup || !destination || !proposedFare) {
-      alert('Please fill all fields');
+      Alert.alert('Missing Information', 'Please fill all fields');
       return;
     }
     
     setIsSearching(true);
     // In reality, this would emit a Socket.IO event to the backend
     setTimeout(() => {
-      alert(`Request sent! Looking for drivers near ${pickup} willing to go to ${destination} for ${proposedFare} AFN.`);
+      Alert.alert('Success', `Request sent! Looking for drivers near ${pickup} willing to go to ${destination} for ${proposedFare} AFN.`);
       setIsSearching(false);
     }, 2000);
   };
 
-  // Kabul coordinates
-  const initialRegion = {
-    latitude: 34.5553,
-    longitude: 69.2075,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
-  };
-
   return (
     <View style={styles.container}>
-      {/* REAL GOOGLE MAPS INTEGRATION */}
-      <MapView 
-        style={styles.map} 
-        initialRegion={initialRegion}
-      >
-        <Marker 
-          coordinate={{ latitude: 34.5553, longitude: 69.2075 }}
-          title="Kabul Center"
-          description="HamRah Ride-Hailing"
-        />
-      </MapView>
-
+      {/* MAP PLACEHOLDER */}
+      <View style={styles.mapPlaceholder}>
+        <Text style={styles.mapText}>🗺️</Text>
+        <Text style={styles.mapLabel}>Kabul, Afghanistan</Text>
+        <Text style={styles.mapSubLabel}>Map will load here</Text>
+      </View>
 
       {/* RIDE PROPOSAL BOTTOM SHEET */}
       <KeyboardAvoidingView 
@@ -113,8 +97,25 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f5f5f5',
   },
-  map: {
+  mapPlaceholder: {
     flex: 1,
+    backgroundColor: '#E8F5E9',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  mapText: {
+    fontSize: 80,
+    marginBottom: 16,
+  },
+  mapLabel: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 8,
+  },
+  mapSubLabel: {
+    fontSize: 16,
+    color: '#666',
   },
   bottomSheet: {
     backgroundColor: '#fff',
